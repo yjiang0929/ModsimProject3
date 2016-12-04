@@ -7,9 +7,12 @@ function res = spiderman_drop_flow (t, W, spiderman_mass, g,...
     dxdt = Vx;
     dydt = Vy;
     %Drag not considered now
-    dVxdt = 0 / spiderman_mass;
-    %drag = 0.5 * drag_constant * air_density * contact_area *...
-    %((x^2+y^2)^(0.5)) * y
-    dVydt = - spiderman_mass * g / spiderman_mass;
+    dVxdt = (-0.5 * drag_constant * air_density * contact_area *...
+       ((Vx^2+Vy^2)^(0.5)) * Vx) / spiderman_mass;
+    %dVxdt = 0;
+    dVydt = (-spiderman_mass * g-0.5 * drag_constant * air_density * contact_area *...
+        ((Vx^2+Vy^2)^(0.5)) * Vy) / spiderman_mass;
+    %dVydt = -g;
+    
     res = [dxdt;dydt;dVxdt;dVydt];
 end
